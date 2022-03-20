@@ -15,3 +15,5 @@ coverage
 # API
 
 # utilities
+requests
+bs4
