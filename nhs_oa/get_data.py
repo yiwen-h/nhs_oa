@@ -32,16 +32,18 @@ def get_doi(pmid_xml = pmid_xml_test):
         if i.get('IdType') == "doi":
             return i.text
 
+def get_title():
+    pass
 
 def get_full_info(pmids = ['34987726', '17284678']):
     # returns a list of dictionaries containig metadata for each pubmed article searched for
     all_articles = []
     for pmid in pmids:
+        article_metadata = {'PMID' : pmid}
         pmid_xml = get_xml(pmid = pmid)
-        art_dict = {'PMID' : pmid}
         doi = get_doi(pmid_xml)
-        art_dict['doi'] = doi
-        all_articles.append(art_dict)
+        article_metadata['doi'] = doi
+        all_articles.append(article_metadata)
     return all_articles
         # articleidlist = pmarticle.findall('ArticleIdList')
         # print(articleidlist)
