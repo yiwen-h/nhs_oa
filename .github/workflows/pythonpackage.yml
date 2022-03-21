@@ -49,6 +49,7 @@ jobs:
     - name: Install package and test
       env:
         pubmed_api_key: ${{ secrets.PUBMED_API_KEY }}
+        email_address: ${{ secrets.EMAIL_ADDRESS }}
       run: |
         make install test clean
 
