@@ -39,17 +39,29 @@ def get_doi(pmid_xml = pmid_xml_test):
 
 def get_unpaywall_json(doi="10.1007/s43465-021-00465-8"):
     url = f"https://api.unpaywall.org/v2/{doi}?email={email_address}"
-    unpaywall_json = requests.get(url).json()
+    response = requests.get(url)
+    if response.status_code == 200:
+        unpaywall_json = response.json()
+    else:
+        unpaywall_json = None
     return unpaywall_json
 
 def get_full_info(pmids = ['34987726', '17284678']):
-    # returns a list of dictionaries containig metadata for each pubmed article searched for
+    # returns a list of dictionaries containing metadata for each pubmed article searched for
     all_articles = []
     for pmid in pmids:
         article_metadata = {'PMID' : pmid}
         pmid_xml = get_xml(pmid = pmid)
         doi = get_doi(pmid_xml)
         article_metadata['doi'] = doi
+        unpaywall_json = get_unpaywall_json(doi = doi)
+        if unpaywall_json is not None:
+            article_metadata['article_title'] = unpaywall_json.get('title', None)
+            article_metadata['pub_date'] = unpaywall_json.get("published_date", None)
+            article_metadata['journal_title'] = unpaywall_json.get("journal_name", None)
+            article_metadata['journal_publisher'] = unpaywall_json.get("publisher", None)
+            article_metadata['is_oa'] = unpaywall_json.get("is_oa", None)
+            article_metadata['oa_status'] = unpaywall_json.get("oa_status", None)
         all_articles.append(article_metadata)
     return all_articles
         # articleidlist = pmarticle.findall('ArticleIdList')
@@ -68,4 +80,4 @@ def get_full_info(pmids = ['34987726', '17284678']):
 
 
 if __name__ == '__main__':
-    print(get_unpaywall_json())
+    print(get_unpaywall_json(342))
