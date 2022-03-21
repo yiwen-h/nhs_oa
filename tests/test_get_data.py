@@ -4,7 +4,7 @@ def test_get_pmids():
     pmids = get_data.get_pmids()
     assert isinstance(pmids, list) == True
 
-def test_get_xml():
+def test_get_xml(api=True):
     art_xml = get_data.get_xml()
     assert art_xml.tag == "PubmedArticleSet"
 
