@@ -4,8 +4,9 @@ Downloads data from NCBI Pubmed
 
 import requests
 import xml.etree.ElementTree as ET
-from bs4 import BeautifulSoup
+import os
 
+pubmed_api_key = os.environ['pubmed_api_key']
 
 # Documentation: https://www.ncbi.nlm.nih.gov/books/NBK25500/#chapter1.Downloading_Full_Records
 
@@ -16,9 +17,12 @@ def get_pmids(year = '2020', retmax = '5'):
     result = re["esearchresult"]["idlist"]
     return result
 
-def get_xml(pmid = '34987726'):
+def get_xml(pmid = '34987726', api=True):
     # returns xml for pubmed article, given a specific pmid
-    url = f"http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id={pmid}"
+    if api==False:
+        url = f"http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id={pmid}"
+    else:
+        url = f"http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id={pmid}&api_key={pubmed_api_key}"
     re = requests.get(url, stream =True)
     re_xml = ET.fromstring(re.content)
     return re_xml
