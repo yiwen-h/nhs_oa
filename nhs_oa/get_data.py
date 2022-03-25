@@ -5,6 +5,7 @@ Downloads data from NCBI Pubmed
 import requests
 import xml.etree.ElementTree as ET
 import os
+import pandas as pd
 
 pubmed_api_key = os.environ['pubmed_api_key']
 email_address = os.environ['email_address']
@@ -44,6 +45,14 @@ def get_article_title(pmid_xml = pmid_xml_test):
     article_title = article.find("ArticleTitle").text
     return article_title
 
+def get_year(pmid_xml = pmid_xml_test):
+    # returns publication year and month of article using XML from pubmed
+    medline_citation = pmid_xml[0][0]
+    article = medline_citation.find("Article")
+    article_date = article.find("ArticleDate")
+    publication_date = f'{article_date.find("Year").text}-{article_date.find("Month").text}'
+    return publication_date
+
 def get_authors(pmid_xml = pmid_xml_test):
     # returns authors of article using XML from pubmed
     medline_citation = pmid_xml[0][0]
@@ -76,7 +85,7 @@ def get_unpaywall_json(doi="10.1007/s43465-021-00465-8"):
     return unpaywall_json
 
 def get_full_info(pmids = ['34987726', '17284678']):
-    # returns a list of dictionaries containing metadata for each pubmed article searched for
+    # returns pandas dataframe containing metadata for each pubmed article searched for
     all_articles = []
     for pmid in pmids:
         article_metadata = {'PMID' : pmid}
@@ -88,31 +97,20 @@ def get_full_info(pmids = ['34987726', '17284678']):
         article_metadata['article_title'] = article_title
         article_authors = get_authors(pmid_xml)
         article_metadata['authors'] = article_authors
+        article_pubdate = get_year(pmid_xml)
+        article_metadata['pub_date'] = article_pubdate
         # get journal publisher and oa status from unpaywall
         unpaywall_json = get_unpaywall_json(doi = doi)
         if unpaywall_json is not None:
-
-            article_metadata['pub_date'] = unpaywall_json.get("published_date", None)
             article_metadata['journal_title'] = unpaywall_json.get("journal_name", None)
             article_metadata['journal_publisher'] = unpaywall_json.get("publisher", None)
             article_metadata['is_oa'] = unpaywall_json.get("is_oa", None)
             article_metadata['oa_status'] = unpaywall_json.get("oa_status", None)
         all_articles.append(article_metadata)
-    return all_articles
-        # articleidlist = pmarticle.findall('ArticleIdList')
-        # print(articleidlist)
-        # doi = art_id.attrib['doi']
-        # pubmed_data = pmid_xml[0].tag
-        #  .get('PubmedData')
-        # return art_id
-    #     if len(article_ids) >= 1:
-    #         for article_id in article_ids:
-    #             if article_id.attrib.get("idtype") == "doi":
-    #                 art_dict['doi']  = article_id.text
-    #     all_articles.append(art_dict)
-    # return all_articles
-
+    articles_df = pd.DataFrame(all_articles)
+    return articles_df
 
 
 if __name__ == '__main__':
-    print(get_authors())
+    article_metadata = get_full_info()
+    print(article_metadata)
