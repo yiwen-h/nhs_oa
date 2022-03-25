@@ -37,6 +37,35 @@ def get_doi(pmid_xml = pmid_xml_test):
         if i.get('IdType') == "doi":
             return i.text
 
+def get_article_title(pmid_xml = pmid_xml_test):
+    # returns title of article using XML from pubmed
+    medline_citation = pmid_xml[0][0]
+    article = medline_citation.find("Article")
+    article_title = article.find("ArticleTitle").text
+    return article_title
+
+def get_authors(pmid_xml = pmid_xml_test):
+    # returns authors of article using XML from pubmed
+    medline_citation = pmid_xml[0][0]
+    article = medline_citation.find("Article")
+    author_list = article.find("AuthorList")
+    if len(author_list) > 3:
+        author_names = f'{author_list[0].find("LastName").text}, {author_list[0].find("Initials").text}. et al'
+    elif len(author_list) == 3:
+        author_1 = f'{author_list[0].find("LastName").text}, {author_list[0].find("Initials").text}.'
+        author_2 = f'{author_list[1].find("LastName").text}, {author_list[1].find("Initials").text}.'
+        author_3 = f'{author_list[2].find("LastName").text}, {author_list[2].find("Initials").text}.'
+        author_names = f"{author_1}, {author_2}, & {author_3}"
+    elif len(author_list) == 2:
+        author_1 = f'{author_list[0].find("LastName").text}, {author_list[0].find("Initials").text}.'
+        author_2 = f'{author_list[1].find("LastName").text}, {author_list[1].find("Initials").text}.'
+        author_names = f"{author_1} & {author_2}"
+    elif len(author_list) == 1:
+        author_names = f'{author_list[0].find("LastName").text}, {author_list[0].find("Initials").text}.'
+    else:
+        author_names = None
+    return author_names
+
 def get_unpaywall_json(doi="10.1007/s43465-021-00465-8"):
     url = f"https://api.unpaywall.org/v2/{doi}?email={email_address}"
     response = requests.get(url)
@@ -52,11 +81,17 @@ def get_full_info(pmids = ['34987726', '17284678']):
     for pmid in pmids:
         article_metadata = {'PMID' : pmid}
         pmid_xml = get_xml(pmid = pmid)
+        # get doi, article title, authors, and year from pubmed
         doi = get_doi(pmid_xml)
         article_metadata['doi'] = doi
+        article_title = get_article_title(pmid_xml)
+        article_metadata['article_title'] = article_title
+        article_authors = get_authors(pmid_xml)
+        article_metadata['authors'] = article_authors
+        # get journal publisher and oa status from unpaywall
         unpaywall_json = get_unpaywall_json(doi = doi)
         if unpaywall_json is not None:
-            article_metadata['article_title'] = unpaywall_json.get('title', None)
+
             article_metadata['pub_date'] = unpaywall_json.get("published_date", None)
             article_metadata['journal_title'] = unpaywall_json.get("journal_name", None)
             article_metadata['journal_publisher'] = unpaywall_json.get("publisher", None)
@@ -80,4 +115,4 @@ def get_full_info(pmids = ['34987726', '17284678']):
 
 
 if __name__ == '__main__':
-    print(get_unpaywall_json(342))
+    print(get_authors())
