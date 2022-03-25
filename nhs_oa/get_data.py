@@ -53,6 +53,21 @@ def get_year(pmid_xml = pmid_xml_test):
     publication_date = f'{article_date.find("Year").text}-{article_date.find("Month").text}'
     return publication_date
 
+def get_orgs(pmid_xml = pmid_xml_test):
+    # returns list of organisations for authors
+    medline_citation = pmid_xml[0][0]
+    article = medline_citation.find("Article")
+    author_list = article.find("AuthorList")
+    org_list = []
+    for i in author_list:
+        affiliationinfo = i.find("AffiliationInfo")
+        affiliation = affiliationinfo.find("Affiliation").text
+        affiliation_as_list = affiliation.split(',')
+        for phrase in affiliation_as_list:
+            if 'Hospital' in phrase or 'NHS' in phrase:
+                org_list.append(phrase.strip())
+    return org_list
+
 def get_authors(pmid_xml = pmid_xml_test):
     # returns authors of article using XML from pubmed
     medline_citation = pmid_xml[0][0]
@@ -99,6 +114,8 @@ def get_full_info(pmids = ['34987726', '17284678']):
         article_metadata['authors'] = article_authors
         article_pubdate = get_year(pmid_xml)
         article_metadata['pub_date'] = article_pubdate
+        article_orgs = get_orgs(pmid_xml)
+        article_metadata['authors_nhs_affils'] = article_orgs
         # get journal publisher and oa status from unpaywall
         unpaywall_json = get_unpaywall_json(doi = doi)
         if unpaywall_json is not None:
@@ -110,7 +127,12 @@ def get_full_info(pmids = ['34987726', '17284678']):
     articles_df = pd.DataFrame(all_articles)
     return articles_df
 
+def get_df_as_csv(year = "2020"):
+    pmids = get_pmids(year = year, retmax = '40000')
+    articles_df = get_full_info(pmids = pmids)
+    articles_df.to_csv(f"articles_{year}")
 
 if __name__ == '__main__':
-    article_metadata = get_full_info()
-    print(article_metadata)
+    yearlist = ["2019", "2020"]
+    for y in yearlist:
+        get_df_as_csv(year = y)
