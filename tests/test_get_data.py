@@ -14,11 +14,11 @@ def test_get_doi():
 
 def test_get_full_info():
     full_info = get_data.get_full_info()
-    assert type(full_info) == list and type(full_info[0] == dict)
+    assert full_info['PMID'].iloc[0] == '34987726'
 
 def test_get_unpaywall_json():
     unpaywall_json = get_data.get_unpaywall_json()
     assert unpaywall_json['title'] == 'There is No Link Between Birth Weight and Developmental Dysplasia of the Hip'
 
 if __name__ == '__main__':
-    test_get_unpaywall_json()
+    test_get_full_info()
