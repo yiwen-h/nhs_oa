@@ -61,11 +61,12 @@ def get_orgs(pmid_xml = pmid_xml_test):
     org_list = []
     for i in author_list:
         affiliationinfo = i.find("AffiliationInfo")
-        affiliation = affiliationinfo.find("Affiliation").text
-        affiliation_as_list = affiliation.split(',')
-        for phrase in affiliation_as_list:
-            if 'Hospital' in phrase or 'NHS' in phrase:
-                org_list.append(phrase.strip())
+        if affiliationinfo:
+            affiliation = affiliationinfo.find("Affiliation").text
+            affiliation_as_list = affiliation.split(',')
+            for phrase in affiliation_as_list:
+                if 'Hospital' in phrase or 'NHS' in phrase:
+                    org_list.append(phrase.strip())
     return org_list
 
 def get_authors(pmid_xml = pmid_xml_test):
