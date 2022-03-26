@@ -18,3 +18,4 @@ coverage
 requests
 bs4
 pytest
+jupyter
