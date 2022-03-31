@@ -93,10 +93,28 @@ def create_df(pmid_list = test_pmid_list, doi_list = test_doi_list, affils_list 
 
 
 if __name__ == "__main__":
-    bib_info_str = read_txt()
+    bib_info_str = read_txt(filepath = f"nhs_oa/data/2019abstract-nhsAffilia-set1.txt")
     new_list = txt_to_list(bib_info_str = bib_info_str)
     pmid_list = get_pmid(new_list)
     doi_list = get_doi(new_list)
     affils_list = get_affiliations(new_list)
     data_df = create_df(pmid_list = pmid_list, doi_list = doi_list, affils_list = affils_list)
-    print(data_df)
+    for i in range(2,6):
+        bib_info_str = read_txt(filepath = f"nhs_oa/data/2019abstract-nhsAffilia-set{i}.txt")
+        new_list = txt_to_list(bib_info_str = bib_info_str)
+        pmid_list = get_pmid(new_list)
+        doi_list = get_doi(new_list)
+        affils_list = get_affiliations(new_list)
+        temp_df = create_df(pmid_list = pmid_list, doi_list = doi_list, affils_list = affils_list)
+        dfs = [data_df, temp_df]
+        data_df = pd.concat(dfs,
+                    axis=0,
+                    join="outer",
+                    ignore_index=True,
+                    keys=None,
+                    levels=None,
+                    names=None,
+                    verify_integrity=False,
+                    copy=True )
+    print(data_df.head())
+    data_df.to_csv("csv/2019_pubmed_data.csv")
