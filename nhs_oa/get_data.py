@@ -1,5 +1,6 @@
 """
-Downloads data from NCBI Pubmed using Entrez API
+Downloads data from NCBI Pubmed using Entrez API.
+Have decided not to use Entrez API for lots of requests as it is very slow and times out
 """
 
 import requests

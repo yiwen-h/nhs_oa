@@ -1,0 +1,180 @@
+1. Clin Med (Lond). 2019 Mar;19(2):169-176. doi: 10.7861/clinmedicine.19-2-169.
+
+Neuromyelitis optica spectrum disorders.
+
+Huda S(1), Whittam D(2), Bhojak M(2), Chamberlain J(3), Noonan C(2), Jacob 
+A(2)(2).
+
+Author information:
+(1)Walton Centre NHS Foundation Trust, Liverpool, UK shuda@nhs.net.
+(2)Walton Centre NHS Foundation Trust, Liverpool, UK.
+(3)Ipsen, Wrexham, UK.
+
+Neuromyelitis optica spectrum disorder (NMOSD) is an uncommon antibody-mediated 
+disease of the central nervous system. Long segments of spinal cord inflammation 
+(myelitis), severe optic neuritis, and/or bouts of intractable vomiting and 
+hiccoughs (area postrema syndrome) are classic presentations of the disease and 
+may alert the clinician to the diagnosis. Untreated, approximately 50% of NMOSD 
+patients will be wheelchair users and blind, and a third will have died within 5 
+years of their first attack. Unlike multiple sclerosis, a progressive clinical 
+course is very unusual and the accrual of disability is related to relapses. 
+Approximately 75% of patients have antibodies against aquaporin-4, a water 
+channel expressed on astrocytes. Relapses are treated aggressively to prevent 
+residual disability with high-dose steroids and often plasma exchange. Relapse 
+prevention is crucial and achieved with long-term immunosuppression. In this 
+article we review the pathogenesis, clinical features, diagnosis and management 
+of NMOSD.
+
+© Royal College of Physicians 2019. All rights reserved.
+
+DOI: 10.7861/clinmedicine.19-2-169
+PMCID: PMC6454358
+PMID: 30872305 [Indexed for MEDLINE]
+
+
+2. Clin Exp Dermatol. 2019 Jul;44(5):477-482. doi: 10.1111/ced.13891. Epub 2019 Jan 
+4.
+
+Review of primary and secondary erythromelalgia.
+
+Mann N(1), King T(1), Murphy R(1).
+
+Author information:
+(1)Department of Dermatology, Sheffield Teaching Hospitals NHS Foundation Trust, 
+Royal Hallamshire Hospital, Sheffield, UK.
+
+Erythromelalgia is a condition characterized by episodic pain, erythema and 
+temperature of the extremities, which is relieved by cooling and aggravated by 
+warming. It is useful to review this topic in light of recent discoveries of the 
+genetic mutations that now define primary erythromelalgia, as opposed to 
+secondary erythromelalgia, which is often associated with underlying medical 
+disorders.
+
+© 2019 British Association of Dermatologists.
+
+DOI: 10.1111/ced.13891
+PMID: 30609105 [Indexed for MEDLINE]
+
+
+3. Rom J Ophthalmol. 2019 Jan-Mar;63(1):15-22.
+
+Corneal neovascularization: updates on pathophysiology, investigations & 
+management.
+
+Sharif Z(1), Sharif W(2).
+
+Author information:
+(1)Department of Ophthalmology, Royal Wolverhampton NHS Trust, Wolverhampton, 
+United Kingdom.
+(2)Department of Ophthalmology, University of Jordan Hospital, University of 
+Jordan, Amman, Jordan.
+
+Objective. Corneal neovascularization is a sight-threatening condition affecting 
+more than 1.4 million people per year. Left untreated, it can lead to tissue 
+scarring, oedema, lipid deposition, and persistent inflammation that may 
+significantly affect visual prognosis and quality of life. The aim was to review 
+the recent evidence relating to the pathophysiology, investigations and 
+management of corneal neovascularization. Methods. Literature review of 
+prospective and retrospective studies, clinical trials and animal models 
+relating to the pathophysiology, investigation and management of corneal 
+neovascularization. Results. Corneal neovascularization is characterized by the 
+invasion of new blood vessels into the cornea caused by an imbalance between 
+angiogenic and antiangiogenic factors that preserve corneal transparency as a 
+result of various ocular insults and hypoxic injuries. Risk factors that have 
+been implicated in the pathogenesis of the disease include contact lens wear, 
+ocular surface disease, trauma, previous surgery and herpes. The results 
+highlighted the current and future management modalities of corneal 
+neovascularization, which includes corneal transplantation, laser - 
+phototherapy, injections and topical treatment. Conclusion. The future of 
+corneal neovascularization is promising and this paper discusses the upcoming 
+revolution in local gene therapy. Abbreviations. HSK = herpes stromal keratitis, 
+VEGF = vascular endothelial growth factor, VEGFR-1 = VEGF Receptor-1, FGF = 
+Fibroblast growth factor, PDGF = Platelet-derived growth factor, IL-6 = 
+interleukin-6, IL-7 = interleukin-7, IL-8 = interleukin-8, IRS-1 = insulin 
+receptor substrate-1.
+
+PMCID: PMC6531773
+PMID: 31198893 [Indexed for MEDLINE]
+
+
+4. Chin Clin Oncol. 2019 Feb;8(1):7. doi: 10.21037/cco.2018.11.03. Epub 2018 Nov 
+28.
+
+Update on skin directed therapies in mycosis fungoides.
+
+Lovgren ML(1), Scarisbrick JJ(2).
+
+Author information:
+(1)Department of Dermatology, University Hospital Birmingham, Birmingham, UK.
+(2)Department of Dermatology, University Hospital Birmingham, Birmingham, UK. 
+jscarisbrick@nhs.net.
+
+Mycosis fungoides (MF) represents the majority of the primary cutaneous T-cell 
+lymphomas (CTCL). Most have early stage MF with localised patches and plaques, 
+which has a favourable survival outcome, but nearly a quarter progress to late 
+stage with tumours, erythroderma, and systemic involvement. Management is based 
+on stage directed treatment with early stage MF (IA-IIA) using skin directed 
+therapies (SDTs), including topical corticosteroids (TCS), chlormethine or 
+retinoids, phototherapy, and radiotherapy (localised or total skin electron beam 
+therapy). Advanced stages (IIB-IVB) or refractory MF often requires systemic 
+treatments which may be used in combination with SDTs. These are primarily 
+employed as a palliative approach, aiming to provide symptomatic relief. For 
+advanced patients achieving a complete or near complete response (CR) with a 
+good performance status may be considered for allogeneic bone marrow 
+transplantation. This paper reviews the different SDT modalities and their 
+efficacy in MF management.
+
+DOI: 10.21037/cco.2018.11.03
+PMID: 30525757 [Indexed for MEDLINE]
+
+
+5. World Neurosurg. 2019 Mar;123:8-16. doi: 10.1016/j.wneu.2018.11.176. Epub 2018 
+Nov 27.
+
+Decompressive Hemicraniectomy in the Treatment of Malignant Middle Cerebral 
+Artery Infarction: A Meta-Analysis.
+
+Das S(1), Mitchell P(2), Ross N(2), Whitfield PC(3).
+
+Author information:
+(1)Royal Victoria Infirmary, Newcastle-upon-Tyne, UK. Electronic address: 
+suparna.das1@nhs.net.
+(2)Royal Victoria Infirmary, Newcastle-upon-Tyne, UK.
+(3)Derriford Hospital, Plymouth, UK.
+
+BACKGROUND: Malignant middle cerebral artery infarctions are large 
+space-occupying infarctions involving massive edema, herniation, and frequently 
+death. Survivors are disabled. Management involves medical treatment, with or 
+without decompressive hemicraniectomy and later duraplasty. This meta-analysis 
+aimed to determine whether surgery is worthwhile with particular regard to views 
+on quality of life of professionals and patients.
+METHODS: A Medline search was performed with the search terms "decompressive 
+surgery," "craniectomy," "hemicraniectomy," "decompressive hemicraniectomy," and 
+"middle cerebral artery," "MCA," "infarct,*" "stroke,*" "embolus," "emboli," 
+"thrombosis," "occlusion," "infarction," and "middle cerebral artery stroke," A 
+second search was also done for views on postoperative quality of life. Studies 
+retrieved were randomized controlled trials, observational studies, and reviews. 
+We compared patients who received only medical treatment with those who had 
+decompressive surgery. Participants were adult patients presenting with 
+malignant middle cerebral artery infarction.
+RESULTS: 270 abstracts were reviewed. 40 articles were identified: 8 randomized 
+controlled trials and 4 observational studies. There were a total of 692 
+patients: 268 surgical and 424 medical. The 2 groups were comparable, with 
+similar demographics. In most trials, mortality was lower with surgery. However, 
+morbidity tended to be higher, particularly in the elderly population. Morbidity 
+was lower with medical treatment. Twelve articles on postoperative quality of 
+life were reviewed; views differed between professionals, and survivors and 
+caregivers. A patient-level comparison could not be made between all studies.
+CONCLUSIONS: Surgical decompression results in lowered mortality but high 
+morbidity, especially in the elderly. There is an increase in Quality Adjusted 
+Life Years but at high costs. Professionals think that surgery is not worth the 
+high disability rate. However, patients and caregivers are satisfied with their 
+postoperative quality of life. Survey data from healthy study participants who 
+are not professionals in stroke care were not available. The decision to treat 
+surgically needs to be decided on an individual basis.
+
+Crown Copyright © 2018. Published by Elsevier Inc. All rights reserved.
+
+DOI: 10.1016/j.wneu.2018.11.176
+PMID: 30500591 [Indexed for MEDLINE]
+
