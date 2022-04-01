@@ -1,6 +1,13 @@
+"""
+For turning txt files downloaded from Pubmed into a pandas dataframe with key metadata:
+- doi
+- pmid
+- affiliations
+- abstract
+"""
+
 import pandas as pd
 import re
-import json
 
 
 def read_txt(filepath = "nhs_oa/data/example_affils.txt"):
@@ -115,7 +122,8 @@ test_doi_list = get_doi()
 test_affils_list = get_affiliations()
 test_abstract_list = get_abstracts()
 
-def create_df(pmid_list = test_pmid_list, doi_list = test_doi_list, affils_list = test_affils_list, abstract_list = test_abstract_list):
+def create_df(pmid_list = test_pmid_list, doi_list = test_doi_list,
+                affils_list = test_affils_list, abstract_list = test_abstract_list):
     info_dict = {"pmid": pmid_list,
                 "doi": doi_list,
                 "affiliations": affils_list,
@@ -131,7 +139,8 @@ def main(filepath = f"nhs_oa/data/example_affils.txt", multipage = False, csvpat
     doi_list = get_doi(new_list)
     affils_list = get_affiliations(new_list)
     abstract_list = get_abstracts(new_list)
-    data_df = create_df(pmid_list = pmid_list, doi_list = doi_list, affils_list = affils_list, abstract_list = abstract_list)
+    data_df = create_df(pmid_list = pmid_list, doi_list = doi_list,
+                        affils_list = affils_list, abstract_list = abstract_list)
     if multipage == True:
         for i in range(2,5):
             bib_info_str = read_txt(filepath = f"nhs_oa/data/2019abstract-nhsAffilia-set{i}.txt")
@@ -140,7 +149,8 @@ def main(filepath = f"nhs_oa/data/example_affils.txt", multipage = False, csvpat
             doi_list = get_doi(new_list)
             affils_list = get_affiliations(new_list)
             abstract_list = get_abstracts(new_list)
-            temp_df = create_df(pmid_list = pmid_list, doi_list = doi_list, affils_list = affils_list, abstract_list=abstract_list)
+            temp_df = create_df(pmid_list = pmid_list, doi_list = doi_list,
+                                affils_list = affils_list, abstract_list=abstract_list)
             dfs = [data_df, temp_df]
             data_df = pd.concat(dfs,
                         axis=0,
@@ -154,4 +164,5 @@ def main(filepath = f"nhs_oa/data/example_affils.txt", multipage = False, csvpat
     data_df.to_csv(csvpath)
 
 if __name__ == "__main__":
-    main(filepath = "nhs_oa/data/2019abstract-nhsAffilia-set1.txt", multipage = True, csvpath = "csv/2019_pubmed_data_parsed.csv")
+    main(filepath = "nhs_oa/data/2019abstract-nhsAffilia-set1.txt", multipage = True,
+            csvpath = "csv/2019_pubmed_data_parsed.csv")
