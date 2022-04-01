@@ -1,5 +1,7 @@
 import pandas as pd
 import re
+import json
+
 
 def read_txt(filepath = "nhs_oa/data/example_affils.txt"):
     # reads pubmed abstract txt file and returns python string
@@ -46,7 +48,7 @@ def get_doi(new_list = test_new_list):
             doi = doi_re[0][1]
             doi_list.append(doi)
         else:
-            doi_list.append('None')
+            doi_list.append('NaN')
             doi_errors.append(i)
     print(f"Completed. {len(doi_list)} articles have a DOI. {len(doi_errors)} do not have a DOI")
     return doi_list
@@ -79,42 +81,77 @@ def get_affiliations(new_list = test_new_list):
     print(f"Completed. {len(final_affil_list)} articles have some affiliation info. {len(affil_errors)} do not have affiliation info")
     return final_affil_list
 
+def get_abstracts(new_list = test_new_list):
+    # returns list of abstracts from txt file of pubmed article abstracts
+    abstract_list = []
+    abstract_errors = []
+    for i in range(len(new_list)):
+        abstract_plus = re.search(r"(Author information:)(.+)(?:©|PMCID|PMID|DOI)", new_list[i], re.DOTALL)
+        if abstract_plus:
+            abstract_plus = abstract_plus.group(2)
+            m = re.search("\n\n", abstract_plus)
+            if m:
+                without_affils = abstract_plus[m.end():]
+                n = re.search("\n\n", without_affils)
+                if n:
+                    without_ids = without_affils[:n.start()]
+                    abstract = without_ids.replace("\n", "").strip()
+                    abstract_list.append(abstract)
+                else:
+                    abstract_list.append('NaN')
+                    abstract_errors.append(i)
+            else:
+                abstract_list.append('NaN')
+                abstract_errors.append(i)
+        else:
+            abstract_list.append('NaN')
+            abstract_errors.append(i)
+    print(f"Completed. {len(abstract_list)} articles have an abstract. {len(abstract_errors)} do not have an abstract")
+    return abstract_list
+
+
 test_pmid_list = get_pmid()
 test_doi_list = get_doi()
 test_affils_list = get_affiliations()
+test_abstract_list = get_abstracts()
 
-def create_df(pmid_list = test_pmid_list, doi_list = test_doi_list, affils_list = test_affils_list):
+def create_df(pmid_list = test_pmid_list, doi_list = test_doi_list, affils_list = test_affils_list, abstract_list = test_abstract_list):
     info_dict = {"pmid": pmid_list,
                 "doi": doi_list,
-                "affiliations": affils_list
+                "affiliations": affils_list,
+                "abstract": abstract_list
                 }
     data_df = pd.DataFrame(info_dict)
     return data_df
 
-
-if __name__ == "__main__":
-    bib_info_str = read_txt(filepath = f"nhs_oa/data/2019abstract-nhsAffilia-set1.txt")
+def main(filepath = f"nhs_oa/data/example_affils.txt", multipage = False, csvpath = "csv/2019_pubmed_data.csv"):
+    bib_info_str = read_txt(filepath = filepath)
     new_list = txt_to_list(bib_info_str = bib_info_str)
     pmid_list = get_pmid(new_list)
     doi_list = get_doi(new_list)
     affils_list = get_affiliations(new_list)
-    data_df = create_df(pmid_list = pmid_list, doi_list = doi_list, affils_list = affils_list)
-    for i in range(2,6):
-        bib_info_str = read_txt(filepath = f"nhs_oa/data/2019abstract-nhsAffilia-set{i}.txt")
-        new_list = txt_to_list(bib_info_str = bib_info_str)
-        pmid_list = get_pmid(new_list)
-        doi_list = get_doi(new_list)
-        affils_list = get_affiliations(new_list)
-        temp_df = create_df(pmid_list = pmid_list, doi_list = doi_list, affils_list = affils_list)
-        dfs = [data_df, temp_df]
-        data_df = pd.concat(dfs,
-                    axis=0,
-                    join="outer",
-                    ignore_index=True,
-                    keys=None,
-                    levels=None,
-                    names=None,
-                    verify_integrity=False,
-                    copy=True )
-    print(data_df.head())
-    data_df.to_csv("csv/2019_pubmed_data.csv")
+    abstract_list = get_abstracts(new_list)
+    data_df = create_df(pmid_list = pmid_list, doi_list = doi_list, affils_list = affils_list, abstract_list = abstract_list)
+    if multipage == True:
+        for i in range(2,5):
+            bib_info_str = read_txt(filepath = f"nhs_oa/data/2019abstract-nhsAffilia-set{i}.txt")
+            new_list = txt_to_list(bib_info_str = bib_info_str)
+            pmid_list = get_pmid(new_list)
+            doi_list = get_doi(new_list)
+            affils_list = get_affiliations(new_list)
+            abstract_list = get_abstracts(new_list)
+            temp_df = create_df(pmid_list = pmid_list, doi_list = doi_list, affils_list = affils_list, abstract_list=abstract_list)
+            dfs = [data_df, temp_df]
+            data_df = pd.concat(dfs,
+                        axis=0,
+                        join="outer",
+                        ignore_index=True,
+                        keys=None,
+                        levels=None,
+                        names=None,
+                        verify_integrity=False,
+                        copy=True )
+    data_df.to_csv(csvpath)
+
+if __name__ == "__main__":
+    main(filepath = "nhs_oa/data/2019abstract-nhsAffilia-set1.txt", multipage = True, csvpath = "csv/2019_pubmed_data_parsed.csv")
