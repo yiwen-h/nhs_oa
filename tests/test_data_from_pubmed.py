@@ -2,7 +2,7 @@ from nhs_oa import data_from_pubmed
 
 def test_read_txt():
     test_bib_info_str = data_from_pubmed.read_txt()
-    assert type(test_bib_info_str) == "str"
+    assert type(test_bib_info_str) == str
 
 def test_txt_to_list():
     test_list = data_from_pubmed.txt_to_list()
