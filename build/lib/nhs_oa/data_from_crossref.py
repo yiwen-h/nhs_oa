@@ -8,6 +8,7 @@ For adding additional metadata using crossref API and doi information.
 - number of times article was referenced
 """
 
+import email
 import pandas as pd
 import requests
 import os
