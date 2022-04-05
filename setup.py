@@ -7,7 +7,7 @@ requirements = [x.strip() for x in content if 'git+' not in x]
 
 setup(name='nhs_oa',
       version="1.0",
-      description="Project Description",
+      description="Project analysing NHS research outputs from 2011-2021",
       packages=find_packages(),
       install_requires=requirements,
       test_suite='tests',

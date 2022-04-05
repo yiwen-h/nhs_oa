@@ -20,3 +20,4 @@ bs4
 pytest
 jupyter
 google-cloud-storage
+gcsfs
