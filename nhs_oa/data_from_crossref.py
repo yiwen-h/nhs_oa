@@ -13,6 +13,7 @@ import pandas as pd
 import requests
 import os
 import time
+import pickle
 
 email_address = os.environ['email_address']
 
@@ -42,40 +43,44 @@ def get_info_from_crossref(df = test_clean_df, tempsavepath = "csv/test_2019_cro
     all_article_title = []
     all_num_citations_crossref = []
     all_num_references_crossref = []
+    errors = []
 
     for i in range(df.shape[0]):
         doi = df.iloc[i].doi
         url = f"https://api.crossref.org/works/{doi}"
-        response = requests.get(url, headers=headers)
-        if response.ok == True:
-            response = response.json()
-            metadata = response.get('message')
-            # get publication date
-            pub_date = list(metadata.get('published').get('date-parts', "NaN")[0])
-            all_date_published.append(pub_date)
-            # get authors
-            author_list = []
-            authors_metadata = metadata.get('author', 'NaN')
-            if authors_metadata != 'NaN':
-                for author in authors_metadata:
-                    author_name = f"{author.get('family', 'NaN')}, {author.get('given', 'NaN')}"
-                    author_list.append(author_name)
-            all_author_list.append(author_list)
-            # get journal title
-            all_journal_title.append(metadata.get('container-title', "NaN")[0])
-            # get article title
-            all_article_title.append(metadata.get('title', "NaN")[0])
-            # get num_citations
-            all_num_citations_crossref.append(metadata.get("is-referenced-by-count", "NaN"))
-            # get num_references
-            all_num_references_crossref.append(metadata.get("references-count", "NaN"))
-        else:
-            all_date_published.append("NaN")
-            all_author_list.append(["NaN"])
-            all_journal_title.append("NaN")
-            all_article_title.append("NaN")
-            all_num_citations_crossref.append("NaN")
-            all_num_references_crossref.append("NaN")
+        try:
+            response = requests.get(url, headers=headers)
+            if response.ok == True:
+                response = response.json()
+                metadata = response.get('message')
+                # get publication date
+                pub_date = list(metadata.get('published').get('date-parts', "NaN")[0])
+                all_date_published.append(pub_date)
+                # get authors
+                author_list = []
+                authors_metadata = metadata.get('author', 'NaN')
+                if authors_metadata != 'NaN':
+                    for author in authors_metadata:
+                        author_name = f"{author.get('family', 'NaN')}, {author.get('given', 'NaN')}"
+                        author_list.append(author_name)
+                all_author_list.append(author_list)
+                # get journal title
+                all_journal_title.append(metadata.get('container-title', "NaN")[0])
+                # get article title
+                all_article_title.append(metadata.get('title', "NaN")[0])
+                # get num_citations
+                all_num_citations_crossref.append(metadata.get("is-referenced-by-count", "NaN"))
+                # get num_references
+                all_num_references_crossref.append(metadata.get("references-count", "NaN"))
+            else:
+                all_date_published.append("NaN")
+                all_author_list.append(["NaN"])
+                all_journal_title.append("NaN")
+                all_article_title.append("NaN")
+                all_num_citations_crossref.append("NaN")
+                all_num_references_crossref.append("NaN")
+        except:
+            errors.append([doi])
         if i % 100 == 0:
             mini_df_dict = {"date_published" : all_date_published,
                             "authors" : all_author_list,
@@ -97,6 +102,8 @@ def get_info_from_crossref(df = test_clean_df, tempsavepath = "csv/test_2019_cro
     crossref_df = pd.DataFrame(crossref_df_dict)
     crossref_df.to_csv(finalsavepath)
     print(f"Finished. Start time: {start_time}. Finish time: {time.ctime()}")
+    with open("errors.pkl", "wb") as f:
+        pickle.dump(errors, f)
     return crossref_df
 
 test_crossref_df = get_info_from_crossref()
@@ -114,6 +121,6 @@ def join_dfs(df1 = test_df, df2 = test_crossref_df, savepath = "csv/2019_crossre
 if __name__ == "__main__":
     df = get_df(filepath = "csv/2019_pubmed_data_parsed.csv")
     df_clean = remove_no_dois(df = df)
-    crossref_df = get_info_from_crossref(df = df_clean, tempsavepath = "csv/2019_crossref_plus_pubmed_temp.csv",
+    crossref_df = get_info_from_crossref(df = df_clean, tempsavepath = "csv/2019_crossref_plus_pubmed_temp_2.csv",
                                             finalsavepath = "csv/2019_crossref_only.csv")
     join_dfs(df1 = df_clean, df2 = crossref_df, savepath = "csv/2019_crossref_plus_pubmed.csv")
