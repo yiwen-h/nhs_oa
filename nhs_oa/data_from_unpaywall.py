@@ -2,6 +2,7 @@ import pandas as pd
 import time
 import requests
 import pickle
+import os
 
 email_address = os.environ['email_address']
 
@@ -11,8 +12,8 @@ def get_df(filepath = "csv/2019_crossref_plus_pubmed_test.csv"):
 
 test_df = get_df()
 
-def get_info_from_unpaywall(df = test_df, tempsavepath = "../csv/test_2019_unpaywall_temp.csv",
-                            finalsavepath = "../csv/test_2019_unpaywall.csv"):
+def get_info_from_unpaywall(df = test_df, tempsavepath = "csv/test_2019_unpaywall_temp.csv",
+                            finalsavepath = "csv/test_2019_unpaywall.csv"):
     start_time = time.ctime()
     all_date_published_upw = []
     all_is_oa = []
@@ -79,3 +80,18 @@ def get_info_from_unpaywall(df = test_df, tempsavepath = "../csv/test_2019_unpay
     with open("errors.pkl", "wb") as f:
         pickle.dump(errors, f)
     return unpaywall_df
+
+test_unpaywall_df = get_info_from_unpaywall()
+
+def join_dfs(df1 = test_df, df2 = test_unpaywall_df, savepath = "csv/2019_crossref_pubmed_upw_test.csv"):
+    unpaywall_info = df2.copy()
+    df1['date_published_upw'] = unpaywall_info.loc[:,"date_published_upw"]
+    df1['is_oa'] = unpaywall_info.loc[:,"is_oa"]
+    df1['oa_status'] = unpaywall_info.loc[:,"oa_status"]
+    df1['oa_locations'] = unpaywall_info.loc[:,"oa_locations"]
+    df1['genre'] = unpaywall_info.loc[:,"genre"]
+    df1.to_csv(savepath)
+    return df1
+
+if __name__ == "__main__":
+    df = get_df()
