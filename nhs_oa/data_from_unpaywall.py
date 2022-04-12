@@ -94,4 +94,11 @@ def join_dfs(df1 = test_df, df2 = test_unpaywall_df, savepath = "csv/2019_crossr
     return df1
 
 if __name__ == "__main__":
-    df = get_df()
+    df = get_df(filepath = "csv/2019_crossref_plus_pubmed.csv")
+    unpaywall_df = get_info_from_unpaywall(df = df, tempsavepath = "csv/2019_upw_temp.csv",
+                            finalsavepath = "csv/2019_upw.csv")
+    with open('errors.pkl', 'rb') as f:
+        errors = pickle.load(f)
+    print(f"Errors: {errors}")
+    full_df = join_dfs(df1 = df, df2 = unpaywall_df, savepath = "csv/2019_crossref_pubmed_upw.csv")
+    print(full_df.head())
