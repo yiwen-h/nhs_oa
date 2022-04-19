@@ -5,5 +5,5 @@
 raw_data/
 **/__pycache__/
 .env
- build/lib/*
- csv/
+build/lib/*
+csv/
