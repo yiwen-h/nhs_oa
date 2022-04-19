@@ -118,9 +118,12 @@ def join_dfs(df1 = test_df, df2 = test_crossref_df, savepath = "csv/2019_crossre
     df1['num_references_crossref'] = crossref_info.loc[:,"num_references_crossref"]
     df1.to_csv(savepath)
 
-if __name__ == "__main__":
+def crossref_main():
     df = get_df(filepath = "csv/2019_pubmed_data_parsed.csv")
     df_clean = remove_no_dois(df = df)
     crossref_df = get_info_from_crossref(df = df_clean, tempsavepath = "csv/2019_crossref_plus_pubmed_temp_2.csv",
                                             finalsavepath = "csv/2019_crossref_only.csv")
     join_dfs(df1 = df_clean, df2 = crossref_df, savepath = "csv/2019_crossref_plus_pubmed.csv")
+
+if __name__ == "__main__":
+    crossref_main()

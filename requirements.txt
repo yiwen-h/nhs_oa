@@ -7,6 +7,7 @@ wheel>=0.29
 numpy
 pandas
 scikit-learn
+seaborn
 
 # tests/linter
 black
@@ -19,5 +20,8 @@ requests
 bs4
 pytest
 jupyter
+
+#GCP
 google-cloud-storage
 gcsfs
+google-cloud-bigquery

@@ -24,8 +24,8 @@ def get_info_from_unpaywall(df = test_df, tempsavepath = "csv/test_2019_unpaywal
     for i in range(df.shape[0]):
         doi = df.iloc[i].doi
         url = f"https://api.unpaywall.org/v2/{doi}?email=yiwench@gmail.com"
-        response = requests.get(url)
         try:
+            response = requests.get(url)
             metadata = response.json()
             if response.ok == True:
                 # get publication date
@@ -93,5 +93,15 @@ def join_dfs(df1 = test_df, df2 = test_unpaywall_df, savepath = "csv/2019_crossr
     df1.to_csv(savepath)
     return df1
 
+def get_unpaywall_data_main():
+    df = get_df(filepath = "csv/2019_crossref_plus_pubmed.csv")
+    unpaywall_df = get_info_from_unpaywall(df = df, tempsavepath = "csv/2019_upw_temp.csv",
+                            finalsavepath = "csv/2019_upw.csv")
+    with open('errors.pkl', 'rb') as f:
+        errors = pickle.load(f)
+    print(f"Errors: {errors}")
+    full_df = join_dfs(df1 = df, df2 = unpaywall_df, savepath = "csv/2019_crossref_pubmed_upw.csv")
+    print(full_df.head())
+
 if __name__ == "__main__":
-    df = get_df()
+    get_unpaywall_data_main()
