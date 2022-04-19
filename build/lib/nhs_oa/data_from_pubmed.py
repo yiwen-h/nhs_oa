@@ -132,7 +132,7 @@ def create_df(pmid_list = test_pmid_list, doi_list = test_doi_list,
     data_df = pd.DataFrame(info_dict)
     return data_df
 
-def main(filepath = f"nhs_oa/data/example_affils.txt", multipage = False, csvpath = "csv/2019_pubmed_data.csv"):
+def pubmed_main(filepath = f"nhs_oa/data/example_affils.txt", multipage = False, csvpath = "csv/2019_pubmed_data.csv"):
     bib_info_str = read_txt(filepath = filepath)
     new_list = txt_to_list(bib_info_str = bib_info_str)
     pmid_list = get_pmid(new_list)
@@ -164,5 +164,5 @@ def main(filepath = f"nhs_oa/data/example_affils.txt", multipage = False, csvpat
     data_df.to_csv(csvpath)
 
 if __name__ == "__main__":
-    main(filepath = "nhs_oa/data/2019abstract-nhsAffilia-set1.txt", multipage = True,
+    pubmed_main(filepath = "nhs_oa/data/2019abstract-nhsAffilia-set1.txt", multipage = True,
             csvpath = "csv/2019_pubmed_data_parsed.csv")

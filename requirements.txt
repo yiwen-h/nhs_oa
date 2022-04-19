@@ -9,11 +9,13 @@ pandas
 scikit-learn
 seaborn
 
+# NLP
+nltk
+gensim
+
 # tests/linter
 black
 coverage
-
-# API
 
 # utilities
 requests
