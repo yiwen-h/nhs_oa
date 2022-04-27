@@ -8,6 +8,7 @@ numpy
 pandas
 scikit-learn
 seaborn
+nltk
 
 # tests/linter
 black
