@@ -87,7 +87,6 @@ def join_dfs(df1 = test_df, df2 = test_openalex_df, savepath = "csv/2019_crossre
     df1.to_csv(savepath)
     return df1
 
-
 def get_openalex_data_main():
     df = get_df(filepath = "csv/2019_crossref_pubmed_upw.csv")
     openalex_df = get_info_from_openalex(df = df, tempsavepath = "csv/2019_openalex_temp.csv",
