@@ -8,7 +8,13 @@ numpy
 pandas
 scikit-learn
 seaborn
+
+# NLP
 nltk
+top2vec
+top2vec[sentence_encoders]
+top2vec[sentence_transformers]
+top2vec[indexing]
 
 # tests/linter
 black
